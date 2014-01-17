@@ -1,0 +1,48 @@
+{% extends "accounts/base_profile_edit.html" %}
+{% load main_extras %}
+{% load humanize %}
+{% load i18n %}
+{% block content_profile %}
+
+<div>
+        <h4 id="content-nav"><span class="glyphicon glyphicon-briefcase"></span> {% trans "Plan" %}</h4>
+        <hr>
+            <div class="row">
+                <div class="col-md-6"><strong>{% trans "Plan" %}</strong></div>
+				
+                <div class="col-md-6">
+                    {% if user_plan %} {{ user_plan.plan.name }} {% else %} N/A {% endif%}
+                </div>
+            </div>
+	<br />
+			<div class="row">
+                <div class="col-md-6"><strong>{% trans "Next billing" %}</strong></div>
+                <div class="col-md-6">
+                    {% if user_plan %} {{ user_plan.billing_date }} {% else %} N/A {% endif%}
+                </div>
+            </div>
+	<br />
+	<div class="row">
+                <div class="col-md-6"><strong>{% trans "Projects" %}</strong></div>
+                <div class="col-md-6">
+					
+                    {% if user_plan %}{{ user.profile.get_feature_count.project_count }} / {{ plan_project_count }} {% else %} N/A {% endif%}
+                </div>
+            </div>
+<br />
+	<div class="row">
+                <div class="col-md-6"><strong>{% trans "Backlinks" %}</strong></div>
+                <div class="col-md-6">
+                    {% if user_plan %}{{ user.profile.get_feature_count.backlink_count }} / {{ plan_backlink_count }} {% else %} N/A {% endif%}
+                </div>
+            </div>
+        </div>
+ <br />
+	<div class="row">
+                <div class="col-md-6"><strong>{% trans "Keywords" %}</strong></div>
+                <div class="col-md-6">
+                    {% if user_plan %}{{ user.profile.get_feature_count.keyword_count }} / {{ plan_keyword_count }} {% else %} N/A {% endif%}
+                </div>
+            </div>
+        </div>
+{% endblock %}

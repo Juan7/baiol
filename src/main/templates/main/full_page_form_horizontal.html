@@ -1,0 +1,16 @@
+<h1>{{ form_meta.title }}</h1>
+<br/>
+<div class="row">
+	<div class="col-lg-8 col-lg-offset-2">
+		<form action="." method="post" class="form-horizontal">
+			{% csrf_token %}
+			{% include "main/form.html" with form=form %}
+			<br/>
+			<div class="form-group">
+			    <div class="col-lg-offset-2 col-lg-10">
+					<p><button class="btn btn-default" type="submit">{{ form_meta.button }}</button></p>
+			    </div>
+			</div>
+		</form>
+	</div>
+</div>

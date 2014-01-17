@@ -1,0 +1,27 @@
+{% load i18n %}
+
+<h1>{{ form_meta.title }}{% if form_meta.subtitle %} <small>{{ form_meta.subtitle }}</small>{% endif %}
+    
+    {% if form_meta.help_collapse %}
+    <a class="btn btn-default link-tooltip-top pull-right" type="button" data-toggle="collapse" data-target=".help-block-collapsed" title="{% trans "Show help text" %}"> <span class="glyphicon glyphicon-question-sign"></span>
+    </a>
+    {% endif %}
+</h1>
+<br/>
+<br/>
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+        <form action="." method="post" class="form-horizontal">
+            {% csrf_token %}
+            {% include "main/form.html" with form=form form_meta=form_meta %}
+            <br/>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-9">
+                    <p><button class="btn btn-default btn-block" type="submit">{{ form_meta.button }}</button></p>
+                </div>
+            </div>
+        </form>
+    
+
+    </div>
+</div>

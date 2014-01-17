@@ -1,0 +1,15 @@
+<div{% if form_meta.header_class %} class="{{ form_meta.header_class }}"{% endif %}>
+	<h1>{{ form_meta.title }}</h1>
+</div>
+<div class="row">
+	<div class="{% if form_meta.form_class %}{{ form_meta.form_class }}{% else %}col-lg-8 col-lg-offset-2{% endif %}">
+		<form action="{{ form_meta.action }}" enctype="multipart/form-data" method="post">
+			{% csrf_token %}
+			{% include "main/form_vertical.html" with form=form %}
+			<br/>
+			<div class="form-group">
+				<button class="btn btn-default btn-block" type="submit">{{ form_meta.button }}</button>
+			</div>
+		</form>
+	</div>
+</div>

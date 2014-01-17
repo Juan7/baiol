@@ -1,0 +1,71 @@
+{% load main_extras %}
+{% load i18n %}
+
+{% if form.non_field_errors %}
+<div class="alert alert-error">
+	<ul>
+	{% for error in form.non_field_errors %}
+		<li>{{ error }}</li>
+	{% endfor %}
+	</ul>
+</div>
+{% endif %}
+
+{% comment %}
+<div class="clearfix"></div>
+<p class="pull-right"><button class="btn-link btn" data-toggle="collapse" data-target="#more-options">{% trans "More options" %}</button></p>
+<div class="clearfix"></div>
+
+<div id="more-options" class="collapse">
+{% endcomment %}
+    
+
+{% for field in form %}	
+    
+    
+    
+    {% if form_meta.more_options %}
+        {% if forloop.counter0 == form_meta.more_options %}
+        <span class="pull-right"><button type="button" class="btn-link btn" data-toggle="collapse" data-target="#more-options">{% trans "More options" %}</button></span>
+        <div class="clearfix"></div>
+            <div id="more-options" class="collapse{% if form_meta.show_options %} in{% endif %}">
+        {% endif %}
+    {% endif %}
+                
+                
+                
+    {% if form.static_fields %}
+        {% if form.static_fields|lookup:forloop.counter0 %}
+            {% with static_field=form.static_fields|lookup:forloop.counter0 %}
+                <div class="form-group">
+                    <label class="col-md-3 control-label">{{ static_field.label }}</label>
+                    <div class="col-md-7">
+                        <p class="form-control-static">{{ static_field.content|safe }}</p>
+                    </div>
+                </div>
+            {% endwith %}
+        {% endif %}
+    {% endif %}
+    
+        <div class="form-group {% if field.errors %} has-error{% endif %}">
+            {% if field.label %}
+            <label class="col-md-3 control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+            {% endif %}
+            <div class="{% if field.label %}col-md-9{% else %}col-md-12{% endif %}">
+                {{ field }}
+                {% for error in field.errors %}
+                <p class="help-block">{{ error }}</p>
+                {% endfor %}
+                {% if field.help_text %}
+                <div class="collapse help-block-collapsed">
+                <p class="help-block">{{ field.help_text }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    {% if form_meta.more_options %}
+        {% if forloop.last %}
+            </div>        
+        {% endif %}
+    {% endif %}
+{% endfor %}

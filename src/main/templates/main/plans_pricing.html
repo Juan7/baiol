@@ -1,0 +1,83 @@
+{% extends "main/base.html" %}
+{% load main_extras %}
+{% load humanize %}
+{% load i18n %}
+{% block content %}
+<div class="row" style="margin-top: 15px;">
+<div class="col-md-12 text-center">
+	{% if user.is_authenticated %}
+	<h2>{% trans 'Hello' %} <strong>{{ user.profile.get_display_name }}</strong>, {% trans 'choose a plan that fits you' %}</h2>
+	<p>{% trans 'We have plans that can improve your experience at WMtools' %}</p>
+	{% else %}
+	<h2>{% trans 'Choose a plan that fits you' %}</h2>
+	<p>{% trans 'Designed for all webmasters' %}</p>
+	{% endif %}
+	<br />
+	</div>
+
+</div>
+
+<div class="row{% if user.is_authenticated %} section-bottom{% endif %}">
+		<div class="col-md-12">
+		<br/>
+		{% if plans %}
+		<div class="row">                   
+			{% for plan in plans %}
+			<div class="col-md-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading text-center">
+					<h3 class="panel-title"><strong>{{ plan }}</strong></h3>
+				</div>
+				<div class="panel-body text-left">
+					<h3 style="margin: 0" ><small style="color:inherit">{% trans "manage" %}</small> <strong class="text-info" style="font-size:20px;">{{ plan.feature_dict.projects }}</strong> <small style="color:inherit">{% trans "projects" %}</small></h3>
+					<hr style="margin-top:15px;margin-bottom:15px"/>
+					<h3 style="margin: 0" ><small style="color:inherit">{% trans "monitor" %}</small> <strong class="text-info" style="font-size:20px;">{{ plan.feature_dict.backlinks }}</strong> <small style="color:inherit">{% trans "backlinks" %}</small></h3>
+					<hr style="margin-top:15px;margin-bottom:15px"/>
+					<h3 style="margin: 0" ><small style="color:inherit">{% trans "track" %}</small> <strong class="text-info" style="font-size:20px;">{{ plan.feature_dict.keywords }}</strong> <small style="color:inherit">{% trans "keywords" %}</small></h3>
+					
+					<br/>
+					<div class="text-center">
+					<h3><strong>$&nbsp;{{ plan.price }}</strong><small style="color:inherit"> / {% trans "month" %}</small></h3>
+					</div>
+				</div>
+				<div class="panel-footer text-center">
+					{% if plan == user_plan %}
+						<a class="btn btn-white btn-lg" disabled="disabled">{% trans 'Current plan' %}</a>
+					{% else %}
+					<a href="{% if not user.is_authenticated %}{% url 'accounts:register' plan.slug %}{% else %}{% url 'accounts:plan_user' plan.slug %}{% endif %}" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-ok"></span> {% trans "Select" %} {{ plan.name|lower }} </a>
+					{% endif %}
+				</div>
+			</div>
+			</div>
+			{% endfor %}
+		</div>
+			<div class="text-center">
+			<p style="font-size:15px">{% trans 'All plans include' %}</p>
+				<ul class="list-inline">
+					<li><strong><span class="glyphicon glyphicon-ok text-success"></span>{% trans 'daily updates' %}</strong></li>
+					<li><strong><span class="glyphicon glyphicon-ok text-success"></span>{% trans 'email notifications' %}</strong></li>
+					<li><strong><span class="glyphicon glyphicon-ok text-success"></span>{% trans 'web stats tracker' %}</strong></li>
+					<li>{% trans "and more!" %}</li></ul>
+				</div>
+
+		{% else %}
+			<p>{% trans "No plan's available" %}.</p>
+		{% endif%}
+		</div>
+</div>
+{% comment %}
+{% if not user.is_authenticated %}
+      <div class="row marketing">
+        <div class="col-md-6">
+          <h4>{% trans 'Monitor links and reviews' %}</h4>
+          <p>{% trans 'Have you bought links and reviews that you do not know if they stay there?' %}</p>
+        </div>
+
+        <div class="col-md-6">
+          <h4>{% trans 'Check your investment' %}</h4>
+          <p>{% trans 'Do you know how much money have you spend on a site?' %}</p>
+        </div>
+      </div>
+{% endif %}
+{% endcomment %}
+{% endblock %}
