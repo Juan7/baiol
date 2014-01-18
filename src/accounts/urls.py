@@ -7,7 +7,10 @@ from accounts.forms import AuthenticationFormEdited, \
     SetPasswordFormEdited
 
 urlpatterns = patterns('accounts.views',
-    url(r'^register/(?P<plan_slug>[-\w]+)/$', 'register',name='register'),
+    url(r'^register/$', 'register',name='register'),
+    url(r'^profile/edit/$', 'profile_edit', name='profile_edit'),
+    url(r'^profile/$', 'profile',name='profile'),
+    
 )
 
 urlpatterns += patterns('django.contrib.auth.views',

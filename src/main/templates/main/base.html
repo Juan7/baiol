@@ -37,7 +37,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">   
                     {% if user.is_authenticated  %}
-                    {% comment %}<li><a href="{% url 'accounts:profile' %}">{{ user.profile.get_display_name }}</a></li>{% endcomment %}
+                    <li><a href="{% url 'accounts:profile' %}">{{ user.profile.get_display_name }}</a></li>
                     <li><a href="{% url 'accounts:logout' %}">{% trans "Logout" %}</a></li>
                     {% else %}
                     {% comment %}<li><a href="{% url 'main:plans_pricing' %}">{% trans "Plans & pricing" %}</a></li>{% endcomment %}

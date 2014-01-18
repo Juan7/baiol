@@ -80,7 +80,7 @@ class RegisterForm(forms.Form):
             }
         )
 
-'''
+
 class ProfileEditForm(ModelForm):
 
     def clean_email(self):
@@ -117,7 +117,7 @@ class ProfileEditForm(ModelForm):
             }
         )
 
-
+'''
 class AvatarEditForm(ModelForm):
 
     class Meta:

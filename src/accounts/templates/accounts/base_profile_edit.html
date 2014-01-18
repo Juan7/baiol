@@ -10,14 +10,14 @@
 	
 <h4>{{ user.profile.get_display_name }}</h4>
 	<div>
-		                    
+        {% comment %}
                     <p><br/><a href="{% url 'accounts:profile_plan' %}" class="btn btn-success">{% trans "Change your Plan" %}</a><p>
+        {% endcomment %}       
 		<br/>
 <div class="btn-group-vertical">
 	<a href="{% url 'accounts:profile' %}" type="button" class="btn btn-default{% if page.code == 'profile_settings' %} active{% endif %}">{% trans "Profile settings" %}</a>
 	<a href="{% url 'accounts:profile_edit' %}" type="button" class="btn btn-default{% if page.code == 'profile_edit' %} active{% endif %}">{% trans "Edit profile" %}</a>
 	<a href="{% url 'accounts:password_change' %}" type="button" class="btn btn-default{% if page.code == 'password_edit' %} active{% endif %}">{% trans "Change password" %}</a>
-	<a href="{% url 'accounts:orders' %}" type="button" class="btn btn-default{% if page.code == 'orders' %} active{% endif %}">{% trans "My orders" %}</a>
 </div>
 </div>
 </div>
