@@ -1,19 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 # Create your models here.
-
-class Product(models.Model):
-    STATUS_CHOICES = (
-        (1, _('active')),                  
-        (2, _('inactive')),                  
-    )
-                    
-    name = models.CharField(max_length=255)
-    category = models.ManyToManyField(Category)
-    status = models.IntegerField(choices=STATUS_CHOICES, default=1)
-    
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     
 class Category(models.Model):
     STATUS_CHOICES = (
@@ -57,19 +44,19 @@ class Category(models.Model):
             self.category = 2
         super(Category, self).save(*args, **kwargs)
         
-class ProductInstance(models.Model):
+class Product(models.Model):
     STATUS_CHOICES = (
         (1, _('active')),                  
         (2, _('inactive')),                  
     )
-    
+                    
     name = models.CharField(max_length=255)
-    product = models.ForeignKey(Product)
+    category = models.ManyToManyField(Category)
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
-    variation = models.ManyToManyField(Variation)
+    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-       
+   
 class Variation(models.Model):
     STATUS_CHOICES = (
         (1, _('active')),                  
@@ -83,13 +70,27 @@ class Variation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+class ProductInstance(models.Model):
+    STATUS_CHOICES = (
+        (1, _('active')),                  
+        (2, _('inactive')),                  
+    )
+    
+    name = models.CharField(max_length=255)
+    product = models.ForeignKey(Product)
+    status = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    variation = models.ManyToManyField(Variation)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+        
 class Picture(models.Model):
     STATUS_CHOICES = (
         (1, _('active')),                  
         (2, _('inactive')),                  
     )
     
-    image = models.ImageField(blank=True)
+    image = models.ImageField(_('picture'), upload_to='products/img/gallery',
+        default='products/img/gallery/nopicture.jpg')
     product = models.ForeignKey(Product)
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
     

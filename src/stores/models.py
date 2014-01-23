@@ -16,8 +16,10 @@ class Store(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
     descripcion = models.CharField(max_length=255, blank=True)
-    avatar = models.ImageField(blank=True)
-    banner = models.ImageField(blank=True)
+    avatar = models.ImageField(_('avatar'), upload_to='stores/img/gallery',
+        default='stores/img/gallery/noavatar.jpg')
+    banner = models.ImageField(_('banner'), upload_to='stores/img/gallery',
+        default='stores/img/gallery/nobanner.jpg')
     link_color = models.CharField(max_length=10)
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
     
