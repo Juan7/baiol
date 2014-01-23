@@ -8,8 +8,8 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, \
     PasswordResetForm, SetPasswordForm
 
-#from main.widgets import AvatarWidget
-#from accounts.models import UserProfile, Feedback
+from main.widgets import AvatarWidget
+from accounts.models import UserProfile
 
 
 class RegisterForm(forms.Form):
@@ -117,7 +117,7 @@ class ProfileEditForm(ModelForm):
             }
         )
 
-'''
+
 class AvatarEditForm(ModelForm):
 
     class Meta:
@@ -128,7 +128,7 @@ class AvatarEditForm(ModelForm):
             'avatar': AvatarWidget,
         }
 
-'''
+
 class AuthenticationFormEdited(AuthenticationForm):
 
     def __init__(self, *args, **kwargs):
