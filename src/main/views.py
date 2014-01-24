@@ -3,11 +3,15 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 
+from stores.models import Store
 
 def home(request):
     user = request.user
     #if not user.is_authenticated():
-    context = {}
+    stores = Store.objects.all()[:10]
+    context = {
+            'stores' : stores,
+        }
     return render(request, 'main/main.html', context)
     '''
     else:

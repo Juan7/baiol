@@ -1,11 +1,14 @@
 body {
-    margin-top: 80px;
+    padding-top: 50px;
+    margin-top: 0px;
     /*background: #f5f1e8 url(https://mozorg.cdn.mozilla.net/media/img/sandstone/bg-sand.png) repeat;
     background: url(https://mozorg.cdn.mozilla.net/media/img/sandstone/bg-gradient-sand.png) repeat-x 0 0,url(https://mozorg.cdn.mozilla.net/media/img/sandstone/bg-sand.png) repeat 0 0,#f5f1e8;*/
 	background: #EEEEEE;
     color: #515151;
 }
-
+@media screen and (max-width: 768px) {
+    body { padding-top: 0px; }
+}
 
 
 h1, h2, h3, h4, h5, h6 {
@@ -175,4 +178,13 @@ fieldset[disabled] .btn-white.active {
 
 .section-bottom {
     margin-bottom: 15px;   
+}
+
+.nav-center{
+  display: inline-block;
+  float: none;
+}
+
+.collapse-center{
+  text-align: center;
 }
