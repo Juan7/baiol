@@ -1,6 +1,21 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 # Create your models here.
+
+class Department(models.Model):
+    STATUS_CHOICES = (
+        (1, _('active')),                  
+        (2, _('inactive')),                  
+    )
+    
+    name = models.CharField(max_length=255)
+    status = models.IntegerField(choices=STATUS_CHOICES, default=1)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.name
     
 class Category(models.Model):
     STATUS_CHOICES = (
@@ -17,6 +32,7 @@ class Category(models.Model):
     parents = models.TextField(blank=True)
     children = models.TextField(blank=True)
     category = models.IntegerField(choices=CATEGORY_CHOICES, default=1)
+    department = models.ManyToManyField(Department)
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
     
     created_at = models.DateTimeField(auto_now_add=True)
@@ -44,6 +60,9 @@ class Category(models.Model):
             self.category = 2
         super(Category, self).save(*args, **kwargs)
         
+    def __str__(self):
+        return self.name
+    
 class Product(models.Model):
     STATUS_CHOICES = (
         (1, _('active')),                  
@@ -51,11 +70,17 @@ class Product(models.Model):
     )
                     
     name = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    avatar = models.ImageField(_('avatar'), upload_to='products/img/gallery',
+        default='products/img/gallery/nopicture.jpg')
     category = models.ManyToManyField(Category)
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.name
    
 class Variation(models.Model):
     STATUS_CHOICES = (
