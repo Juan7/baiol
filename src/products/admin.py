@@ -1,5 +1,5 @@
 from django.contrib import admin
-from products.models import Product, Category, Department
+from products.models import Product, Category, Department, ProductInstance, Variation
 # Register your models here.
 
 class ProductAdmin(admin.ModelAdmin):
@@ -22,7 +22,7 @@ class CategoryAdmin(admin.ModelAdmin):
     readonly_fields = ('updated_at', 'created_at')
     fieldsets = (
         (None, {
-            'fields': ('name', 'department', 'status')
+            'fields': ('name', 'department', 'category', 'status')
         }),
         ('Meta', {
             'fields': ('updated_at', 'created_at')
@@ -43,3 +43,31 @@ class DepartmentAdmin(admin.ModelAdmin):
         }),
     )
 admin.site.register(Department, DepartmentAdmin)
+
+class ProductInstanceAdmin(admin.ModelAdmin):
+    list_display = ('name', 'status',)
+    #prepopulated_fields = {'slug': ('name', )}
+    readonly_fields = ('updated_at', 'created_at')
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'product', 'variation', 'status')
+        }),
+        ('Meta', {
+            'fields': ('updated_at', 'created_at')
+        }),
+    )
+admin.site.register(ProductInstance, ProductInstanceAdmin)
+
+class VariationAdmin(admin.ModelAdmin):
+    list_display = ('key', 'value', 'status',)
+    #prepopulated_fields = {'slug': ('name', )}
+    readonly_fields = ('updated_at', 'created_at')
+    fieldsets = (
+        (None, {
+            'fields': ('key', 'value',  'status')
+        }),
+        ('Meta', {
+            'fields': ('updated_at', 'created_at')
+        }),
+    )
+admin.site.register(Variation, VariationAdmin)

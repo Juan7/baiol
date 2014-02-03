@@ -26,6 +26,9 @@ class Store(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    def __str__(self):
+        return self.name
+    
 class StorePermission(models.Model):
     ROL_CHOICES = (
         (1, _('admin')),
@@ -61,8 +64,12 @@ class StoreProduct(models.Model):
     )
     
     name = models.CharField(max_length=255)
+    store = models.ForeignKey(Store)
     product = models.ForeignKey(ProductInstance)
     status = models.IntegerField(choices=STATUS_CHOICES, default=1)
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.name

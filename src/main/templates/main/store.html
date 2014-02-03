@@ -1,0 +1,85 @@
+{% extends "main/base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block content %}
+
+<style>
+.main-head {
+  font-size: 35px;
+  font-weight: 400;
+  margin: 40px auto 10px auto;
+  /* color: #fff; */
+  text-align: center;
+}
+
+.main-subhead {
+  font-size: 18px;
+  font-weight: 400;
+  color: #777;
+  text-align: center;
+  margin-top: 0;
+}
+.container-main {
+    /* background-color: #555;*/
+}
+</style>
+
+
+<div class="row">
+    <div class="col-md-3 text-center">
+        <div class="thumbnail">
+            <img src="{{ MEDIA_URL}}{{ store.avatar }}" alt="..." style="min-height:200px;height:200px;">
+        </div>
+        <a class="btn btn-default" href="#">{% trans 'Suscribe' %}</a>
+    </div>
+    <div class="col-md-9">
+        <h2>{{ store.name }}</h2>
+        <h3>{{ store.description }}</h3>
+    </div>
+        
+</div>
+<br>
+<nav id="navbarExample" class="navbar navbar-default">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse collapse-center" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav nav-center">
+                    <li><a href="{% url 'main:store' store.id %}">{{ store.name }}</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+    </nav>
+
+<div class="row" data-spy="scroll" data-target="#navbarExample">  
+     
+    <div class="col-md-3">
+        {% if categories %}
+        <ul class="nav nav-stacked">
+            <li class="btn btn-default">Categories</li>
+            {% for category in categories %}
+                <li><a class="btn btn-white" href="#">{{ category.name }}</a></li>
+            {% endfor%}
+        </ul>
+        {% endif %}
+    </div>
+    <div class="col-md-9">
+        {% if products %}
+        {% for product in products %}
+            <div class="col-md-4">
+                <div class="thumbnail">
+                    <img src="{{ MEDIA_URL}}{{ product.product.product.avatar }}" alt="..." style="min-height:150px;height:150px;">
+                    <div class="caption">
+                        <h3>{{ product.product.name }}</h3>
+                        <p>{{ product.product.product.description }}</p>
+                        <p><a href="#" class="btn btn-primary" role="button">Check</a> <a href="#" class="btn btn-default" role="button">Buy</a></p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>    
+
+<hr style="margin:0;margin-top: 25px;"/>
+
+
+{% endblock %}
